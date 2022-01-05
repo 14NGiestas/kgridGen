@@ -1,0 +1,7 @@
+name    = "kgridGen"
+version = "0.0.0"
+author  = ""
+maintainer = ""
+
+[ dependencies ]
+symlib = { git = "https://github.com/14NGiestas/symlib.git" }
