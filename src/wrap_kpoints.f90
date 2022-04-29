@@ -11,7 +11,7 @@ CONTAINS
   !!<parameter name="R" regular="true"> 3x3 matrix. Columns are the reciprocal lattice
   !! vectors </parameter>
   !!<parameter name="kLVshift" regular="true"> Fractional shift of the k-grid. Given as
-  !! fractions of the generating k-grid vectors. </parameter> 
+  !! fractions of the generating k-grid vectors. </parameter>
   !!<parameter name="KpList" regular="true"> List of unreduced k-points in Cartesian
   !! coordinates. </parameter>
   SUBROUTINE getFullKpointList(K, R, kLVshift, KpList, reps_, aeps_)
@@ -35,13 +35,13 @@ CONTAINS
     else
        reps =  reps_
     endif
-    
+
     KpList = 0.0_dp
 
     call generateFullKpointList(K, R, kLVshift, temp_KpList, reps_=reps, aeps_=aeps)
 
     KpList = temp_KpList
-    
+
   end SUBROUTINE getFullKpointList
 
 
@@ -84,12 +84,12 @@ CONTAINS
 
     allocate(temp_AtBas(size(AtBas,1), size(AtBas,2)))
     temp_AtBas = AtBas
-    
+
     call generateIrredKpointList(A, temp_AtBas, at, K, R, kLVshift, temp_IrrKpList, temp_weights, reps_=reps, aeps_=aeps)
-    
+
     IrrKpList(1:size(temp_IrrKpList,1),:) = temp_IrrKpList
     weights(1:size(temp_weights,1)) = temp_weights
 
   end SUBROUTINE getIrredKpoints
-  
+
 end MODULE wrap_kpoints

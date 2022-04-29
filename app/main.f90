@@ -15,11 +15,11 @@ PROGRAM kpoint_driver
 
   ! shift = (/ 0.0_dp, 0.0_dp, 0.0_dp /)
   ! R = transpose(reshape((/ -0.0_dp, 1.0_dp, 1.0_dp, &
-  !                         1.0_dp, 0.0_dp, 1.0_dp, &
-  !                         1.0_dp, 1.0_dp, 0.0_dp /),(/3,3/)))
+  !                           1.0_dp, 0.0_dp, 1.0_dp, &
+  !                           1.0_dp, 1.0_dp, 0.0_dp  /),(/3,3/)))
   ! H = transpose(reshape((/ 2, 0, 0, &
-  !                         0, 2, 0, &
-  !                         0, 0, 2 /),(/3,3/)))
+  !                          0, 2, 0, &
+  !                          0, 0, 2 /),(/3,3/)))
 
   ! Finite precision tolerance (same as default value)
   ! eps = 1e-10_dp
@@ -88,12 +88,12 @@ PROGRAM kpoint_driver
   aeps = 1e-10_dp
 
   shift = (/ 0.0_dp, -1.5_dp, 0.5_dp /)
-  R = TRANSPOSE(RESHAPE((/ 0.0_dp, 0.86172861889_dp, 0.86172861889_dp, &
-       0.86172861889_dp, 0.0_dp, 0.86172861889_dp, &
-       0.86172861889_dp, 0.86172861889_dp, 0.0_dp /),(/3,3/)))
+  R = TRANSPOSE(RESHAPE((/ 0.0_dp,           0.86172861889_dp, 0.86172861889_dp, &
+                           0.86172861889_dp, 0.0_dp,           0.86172861889_dp, &
+                           0.86172861889_dp, 0.86172861889_dp, 0.0_dp           /),(/3,3/)))
   H = TRANSPOSE(RESHAPE((/ 2, 0, 0, &
-       2, 3, 0, &
-       3, 1, 4 /),(/3,3/)))
+                           2, 3, 0, &
+                           3, 1, 4  /),(/3,3/)))
 
   CALL matrix_inverse(REAL(H,dp), Hinv, eps_=aeps)
   ! Columns of K are the grid generating vectors.
