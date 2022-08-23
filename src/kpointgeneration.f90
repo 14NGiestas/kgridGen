@@ -546,11 +546,11 @@ CONTAINS
        urKpt = UnreducedKpList(iUnRdKpt,:) ! unrotated k-point (shorter name for clarity)
        idx = findKptIndex(urKpt-shift, InvK, L, D, rtol_=reps, atol_=aeps)
 
-       if (present(backtrack)) backtrack(idx) = iUnRdKpt ! This maps the unreduced index to a reduced one
 
        if (hashTable(idx)/=0) then
            cycle ! This k-point is already on an orbit, skip it
        end if
+       if (present(backtrack)) backtrack(iUnRdKpt) = idx ! This maps the unreduced index to a reduced one
 
        cOrbit = cOrbit + 1
        hashTable(idx) = cOrbit

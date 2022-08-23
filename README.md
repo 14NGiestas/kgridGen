@@ -1,3 +1,5 @@
+# note: removed tests to fpm package, refer to the original
+
 # kgridGen
 Generator for k-point grids.
 
