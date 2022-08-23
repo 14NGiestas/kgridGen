@@ -448,7 +448,10 @@ CONTAINS
     integer :: zz
     integer :: intSymOp(3,3,size(SymOps,3))
 
-    if (present(backtrack)) allocate(backtrack(size(UnreducedKpList,1)))
+    if (present(backtrack)) then
+        allocate(backtrack(size(UnreducedKpList,1)))
+        backtrack = -1
+    end if
 
     if(.not. present(reps_)) then
        reps = 1e-10_dp
@@ -546,11 +549,7 @@ CONTAINS
        urKpt = UnreducedKpList(iUnRdKpt,:) ! unrotated k-point (shorter name for clarity)
        idx = findKptIndex(urKpt-shift, InvK, L, D, rtol_=reps, atol_=aeps)
 
-
-       if (hashTable(idx)/=0) then
-           cycle ! This k-point is already on an orbit, skip it
-       end if
-       if (present(backtrack)) backtrack(iUnRdKpt) = idx ! This maps the unreduced index to a reduced one
+       if (hashTable(idx)/=0) cycle ! This k-point is already on an orbit, skip it
 
        cOrbit = cOrbit + 1
        hashTable(idx) = cOrbit
@@ -586,6 +585,21 @@ CONTAINS
           endif
        enddo
     enddo
+
+    ! This maps the full brillouin zone to the reduced one
+    ! So, if there is a heavy calculation made upon the reduced values
+    ! but you need to know the corresponding value of such calculation
+    ! running through the full zone, you can:
+    !```fortran
+    !do i=1, size(full_zone)
+    !   idx = backtrack(i) ! maps full to reduced
+    !   rd = reduced_zone(idx,:)
+    !   fz = full_zone(i,:)
+    !end do
+    !``` 
+    if (present(backtrack)) then
+        backtrack = hashTable 
+    end if
 
     ! Now that we have the hash table populated, make a list of the irreducible k-points
     ! and their corresponding weights.
